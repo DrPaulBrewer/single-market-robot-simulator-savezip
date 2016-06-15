@@ -13,7 +13,7 @@ function pad(x){
 
 function myDateStamp(){
     "use strict";
-    var now = Date.now();
+    var now = new Date();
     return ( ''+ now.getUTCFullYear() + 
 	     pad(now.getUTCMonth() + 1) +
              pad(now.getUTCDate()) +
