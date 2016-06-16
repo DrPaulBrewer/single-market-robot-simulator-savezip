@@ -53,7 +53,7 @@ module.exports = function savezip(sims){
 	});
     });
     (zip
-     .generateAsync({type:"blob"})
+     .generateAsync({type:"blob", compression:"DEFLATE"})
      .then(function (blob) {
 	 saveAs(blob, stamp+".zip");
      })
