@@ -1,6 +1,6 @@
 {
   "name": "single-market-robot-simulator-savezip",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "saves config and logs of an array of simulations as a .zip file",
   "main": "index.js",
   "scripts": {
