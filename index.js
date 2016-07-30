@@ -56,7 +56,7 @@ module.exports = function savezip(sims, callback){
      .generateAsync({type:"blob", compression:"DEFLATE"})
      .then(function(blob){ 
 	 if (typeof(callback)==="function")
-	     return callback();
+	     return callback(blob);
 	 saveAs(blob, stamp+".zip");
      })
     );
