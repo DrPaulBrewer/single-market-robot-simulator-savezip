@@ -39,7 +39,7 @@ function csvString(rows){
     return s;
 }
 
-module.exports = function savezip(sims){
+module.exports = function savezip(sims, callback){
     "use strict";
     var stamp = myDateStamp();
     var zip = new JSzip();
@@ -54,7 +54,9 @@ module.exports = function savezip(sims){
     });
     (zip
      .generateAsync({type:"blob", compression:"DEFLATE"})
-     .then(function (blob) {
+     .then(function(blob){ 
+	 if (typeof(callback)==="function")
+	     return callback();
 	 saveAs(blob, stamp+".zip");
      })
     );

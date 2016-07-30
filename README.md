@@ -22,9 +22,13 @@ This module exports a single function,
 
 where
 
-     saveZip({Array of single-market-robot-simulator.Simulation} sims)
+     saveZip({Array of single-market-robot-simulator.Simulation} sims, callback)
 
-returns nothing, and asynchronously exports a .zip file from browser-memory, particularly an array of  multiple `single-market-robot-simulator,Simulation`s
+calls
+
+`callback(blob)`, where blob is a representation of zipped folder data for the simulations,
+
+or without a callback,  returns nothing, and asynchronously exports a .zip file from browser-memory, particularly an array of  multiple `single-market-robot-simulator,Simulation`s
 is exported as a .zip file containing a directory for each Simulation, with files for the Simulatin config.json and data logs in .csv format.
 
 ## Example (from robot-trading-webapp: main.js)
