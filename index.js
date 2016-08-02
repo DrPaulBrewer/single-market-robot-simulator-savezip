@@ -59,7 +59,7 @@ module.exports = function savezip(_obj){
 	    folder.file(L+".csv", csvString(logs[L].data));
 	});
 	delete sim.logs;
-	folder.file("sim.json", JSON.stringify(sim,null,2));
+	folder.file("sim.json", JSON.stringify(sim.config,null,2));
 	sim.logs = logs;
     });
     return (zip
