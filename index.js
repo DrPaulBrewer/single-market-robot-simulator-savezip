@@ -39,6 +39,8 @@ function csvString(rows){
     return s;
 }
 
+// see http://stackoverflow.com/a/7220510/103081 by http://stackoverflow.com/users/27862/user123444555621 for pretty printed stringify
+
 module.exports = function savezip(_obj){
     "use strict";
     var config = _obj.config, sims = _obj.sims, download = _obj.download;
@@ -48,15 +50,17 @@ module.exports = function savezip(_obj){
     var zip = new JSzip();
     config.zipfileName = stamp;
     config.zipfileDate = Date.now();
-    zip.folder(stamp).file("config.json", JSON.stringify(config));    
+    zip.folder(stamp).file("config.json", JSON.stringify(config,null,2));    
     sims.forEach(function(sim, i){
 	var folder = zip.folder(stamp).folder(letter(i));
-	// see http://stackoverflow.com/a/7220510/103081 by http://stackoverflow.com/users/27862/user123444555621 for pretty printed stringify
-	folder.file("sim.json", JSON.stringify(sim,null,2));
-	var logNames = Object.keys(sim.logs);
+	var logs = sim.logs;
+	var logNames = Object.keys(logs);
 	logNames.forEach(function(L){
-	    folder.file(L+".csv", csvString(sim.logs[L].data));
+	    folder.file(L+".csv", csvString(logs[L].data));
 	});
+	delete sim.logs;
+	folder.file("sim.json", JSON.stringify(sim,null,2));
+	sim.logs = logs;
     });
     return (zip
 	    .generateAsync({type:"blob", compression:"DEFLATE"})
