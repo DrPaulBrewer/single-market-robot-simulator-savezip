@@ -39,8 +39,9 @@ function csvString(rows){
     return s;
 }
 
-module.exports = function savezip({config, sims, download}){
+module.exports = function savezip(_obj){
     "use strict";
+    var config = _obj.config, sims = _obj.sims, download = _obj.download;
     if ((!config) || !(Array.isArray(sims)))
 	throw new Error("single-market-robot-simulator-savezip: no config or sims to save");
     var stamp = myDateStamp();
