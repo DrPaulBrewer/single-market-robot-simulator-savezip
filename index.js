@@ -4,29 +4,9 @@
 /* jshint browserify:true,jquery:true,esnext:true,eqeqeq:true,undef:true,lastsemic:true,strict:true,unused:true */
 
 const JSzip = require('jszip');
+const Study = require('single-market-robot-simulator-study');
 const saveAs = require('filesaver.js-npm').saveAs;
 
-function pad(x){
-    "use strict";
-    return (x<10)? ("0"+x) : (''+x);
-}
-
-function myDateStamp(){
-    "use strict";
-    var now = new Date();
-    return ( ''+ now.getUTCFullYear() + 
-	     pad(now.getUTCMonth() + 1) +
-             pad(now.getUTCDate()) +
-             'T' + pad(now.getUTCHours()) +
-             pad(now.getUTCMinutes())
-	   );
-}
-
-function letter(n){
-    "use strict";
-    var A = "A".charCodeAt(0);
-    return String.fromCharCode(A+n);
-}
 
 function csvString(rows){
     "use strict";
@@ -46,13 +26,13 @@ module.exports = function savezip(_obj){
     var config = _obj.config, sims = _obj.sims, download = _obj.download;
     if ((!config) || !(Array.isArray(sims)))
 	throw new Error("single-market-robot-simulator-savezip: no config or sims to save");
-    var stamp = myDateStamp();
+    var stamp = Study.myDateStamp();
     var zip = new JSzip();
     config.zipfileName = stamp;
     config.zipfileDate = Date.now();
     zip.folder(stamp).file("config.json", JSON.stringify(config,null,2));    
     sims.forEach(function(sim, i){
-	var folder = zip.folder(stamp).folder(letter(i));
+	var folder = zip.folder(stamp).folder(Study.letter(i));
 	var logs = sim.logs;
 	var logNames = Object.keys(logs);
 	logNames.forEach(function(L){
