@@ -7,18 +7,6 @@ const JSzip = require('jszip');
 const Study = require('single-market-robot-simulator-study');
 const saveAs = require('filesaver.js-npm').saveAs;
 
-
-function csvString(rows){
-    "use strict";
-    var s = '';
-    var i,l,row;
-    for(i=0,l=rows.length;i<l;++i){
-	row = rows[i];
-	s += row.join(",") + "\n";
-    }
-    return s;
-}
-
 // see http://stackoverflow.com/a/7220510/103081 by http://stackoverflow.com/users/27862/user123444555621 for pretty printed stringify
 
 module.exports = function savezip(_obj){
@@ -36,7 +24,7 @@ module.exports = function savezip(_obj){
 	var logs = sim.logs;
 	var logNames = Object.keys(logs);
 	logNames.forEach(function(L){
-	    folder.file(L+".csv", csvString(logs[L].data));
+	    folder.file(L+".csv", logs[L].toString());
 	});
 	delete sim.logs;
 	folder.file("sim.json", JSON.stringify(sim.config,null,2));
