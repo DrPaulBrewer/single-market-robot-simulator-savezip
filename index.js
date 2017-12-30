@@ -20,7 +20,7 @@ module.exports = function savezip(_obj){
     config.zipfileDate = Date.now();
     zip.folder(stamp).file("config.json", JSON.stringify(config,null,2));    
     sims.forEach(function(sim, i){
-	var folder = zip.folder(stamp).folder(Study.letter(i));
+	var folder = zip.folder(stamp).folder(Study.pad(i));
 	var logs = sim.logs;
 	var logNames = Object.keys(logs);
 	logNames.forEach(function(L){
